@@ -1,0 +1,61 @@
+{% extends 'basecode.html' %}
+{% block title %}{{admin.firstName}} {% if admin.middleName != 'None' %} {{admin.middleName}} {% endif %} {{admin.lastName}}Profile{% endblock %}
+{% block view_profile %}active{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <center>
+        <h1><span class="badge badge-secondary">Profile</span></h1>
+        <br><br>
+ <table style="border:0;">
+        <tr class="table">
+            <th>Full Name: </th>
+            <td><div id="i1" >{{admin.firstName}} {% if admin.middleName != 'None' %} {{admin.middleName}} {% endif %} {{admin.lastName}}</div></td>
+            </tr>
+
+
+        <tr class="table">
+            <th>Contact Number: </th>
+            <td><div id="i14" >{{admin.mobileNo}}</div></td>
+            </tr>
+
+
+
+        <tr class="table">
+            <th>Email Address: </th>
+            <td><div id="i5">{{admin.emailAdd}}</div></td>
+            </tr>
+
+
+
+        <tr class="table">
+            <th>Address:</th>
+            <td><div id="i7">{{admin.address}}</div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Pincode:</th>
+            <td><div id="i8">{{admin.pincode}}</div></td>
+            </tr>
+
+       <tr class="table">
+            <th>Age:</th>
+            <td><div id="i9">{{admin.age}}</div></td>
+            </tr>
+
+
+
+    </table>
+        <hr>
+
+
+        <br>
+        <form method="get" action="/admin_login/update_admin">
+                  <input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+            <button class="btn btn-warning" type="submit">Update</button>
+        </form>
+    </center>
+    </div>
+<br><br>
+
+{% endblock %}

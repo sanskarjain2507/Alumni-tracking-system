@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Signup-Alumini Tracking System</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+  <div class="navbar-brand"><img src="/media/alumini_icon.jpg" height="50" width="100">ALUMNI CONNECT</div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+    <ul class="navbar-nav">
+
+
+
+                 <a class="dropdown-item bg-dark">
+                   <form method="get" action="/">
+                       <button style="background-color:transparent; border:0;" class="nav-link">Home</button>
+                   </form>
+                 </a>
+
+                 <a class="dropdown-item bg-dark">
+                   <form method="get" action="/admin_login/login_page">
+                       <button style="background-color:transparent; border:0;" class="nav-link">Login</button>
+                   </form>
+                 </a>
+
+                 <a class="dropdown-item bg-dark">
+                   <form method="get" action="/student/signup_page">
+                       <button style="background-color:transparent; border:0;" class="nav-link active">Signup</button>
+                   </form>
+                 </a>
+
+
+
+
+
+
+
+    </ul>
+</div>
+</nav>
+
+    <br><br>
+
+<div class="container">
+        <div class="alert alert-primary" role="alert">
+            <center>REGISTER YOURSELF HERE !</center>
+</div>
+        <br><br>
+    <form method="post" id="form" enctype="multipart/form-data" action="/student/register_success">
+        {% csrf_token %}<input type="hidden" value="{{role}}" name="role">
+       Full Name:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" Placeholder="First Name" name="fname" required>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" Placeholder="Middle Name" name="mname">
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" Placeholder="Last Name" name="lname" required>
+
+        <br><br>
+        Mobile Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="text" name="mobno" required>
+        <br>
+       <br>
+           Email Address :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="emlfld" type="email" name="email" required>
+
+        <br>
+        <div class="emlerr" style="color:red"></div>
+        <br>
+        Enter Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" required name="password" id="repass">
+
+        <br><br>
+        Re-enter Paswword:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" id="confpass" name="repassword" required>
+        <br>
+        <div class="err" style="color:red;"></div><br>
+
+        <br>
+         <br>
+        College Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select name="clg" class="custom-select" required>
+  {% for i in colleges %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+</select>
+
+        <br>
+         <br>
+        College Id(or admission number):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="colid" required>
+
+        <br>
+       <br>
+        Department:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <select class="custom-select" name="dept" required>
+  {% for i in depts %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+        </select>
+        <br>
+         <br>
+        Latest degree persued from the college:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="degree" required>
+
+        <br><br>
+        Year of completion:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="number" name="yoc" required>
+
+        <br>
+        <br>
+
+
+  Current Status of Work:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <select class="custom-select" name="work" required>
+  {% for i in sts %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+</select>
+
+        <br>
+<br>
+        Salary:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="number" name="anninc" required>
+
+        <br>
+        <br>
+        Address:<div class="form-group">
+
+    <textarea class="form-control" required name='address' id="FormControlTextarea1" rows="3"></textarea>
+
+        <br><br>
+        Pincode: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="pincode" required id="tpin" value="{{temppin}}">
+
+        <br><br>
+
+        </div>
+        <br><br>
+         your Photo:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="file" name="filed" accept="/image/*" required><br><br>
+        Gender: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+        <input type="radio" name="gender" value="Male" id="genm">Male    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" value="Female" id="genf">Female     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="gender" value="Others" id="geno"> Others<br>
+        <div class="err1" style="color:red;"></div>
+        <br><br>
+        <center> <button type="submit" class="btn btn-primary" id="register">Send Request</button></center><br><br>
+        <div style="color:red">{{error}}</div>
+
+
+
+    </form>
+        </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        var allowsubmit = false;
+        $(function(){
+         $(document).ready(function(){
+            $('#emlfld').val('');
+
+});
+
+
+            $('#emlfld').on('keyup',function(){
+                var email = $(this).val();
+                console.log(email)
+                $.ajax({
+                type:'POST',
+                url:'/student/ajax/validate_email',
+                data:{
+                    'email' : email,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(data){
+                console.log(data.is_taken)
+                   if(data.is_taken){
+                        $('.emlerr').text('Email is already taken')
+                        $('#register').attr('disabled',true)
+                    }
+
+                    if(!data.is_taken){
+                     $('.emlerr').text('')
+                     $('#register').attr('disabled',false)
+                    }
+                    }
+                });
+
+            });
+
+            //onkeypress
+            $('#confpass,#repass').keyup(function(e){
+            //get values
+            var pwd= $('#repass').val();
+            var confpwd=$('#confpass').val();
+
+            if(pwd == confpwd){
+                $('.err').text('');
+                allowsubmit = true;
+
+            }else{
+            $('.err').text('password not matching');
+            allowsubmit = false;
+            }
+            });
+
+
+            $('#form').submit(function()
+            {
+                var pwd = $('#repass').val();
+                var confpwd = $('#confpass').val();
+                var gen1=$("input[name='gender']:checked").val();
+                  $('.err1').text('');
+                if(pwd==""){
+                    $('.err').text('please enter password');
+                    return false;
+                }
+
+                if(pwd == confpwd){
+                    if (gen1)
+                    {
+                    $('#FormControlTextarea2,#ppin').prop('disabled',false);
+                    return true;
+                    }
+                    else{
+                    $('.err1').text('please select your gender');
+                    return false;
+                    }
+                    }
+                else{
+                     $('.err').text('password not matching');
+                    return false;
+                    }
+
+            });
+
+
+            });
+
+
+
+
+    </script>
+
+  </body>
+</html>

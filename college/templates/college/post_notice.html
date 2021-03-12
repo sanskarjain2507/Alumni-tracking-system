@@ -1,0 +1,58 @@
+{% extends 'basecode1.html' %}
+{% block title %}Publsh Notice-Alumni Tracking System{% endblock %}
+{% block publish_notice %}active{% endblock %}
+{% block style %}
+ .the-fieldset {
+border: 3px solid #e0e0e0;
+padding: 10px;
+}
+label {
+  display: inline-block;
+float: left;
+clear: left;
+width: 140px;
+text-align: left;
+       }
+.the-legend {
+  font-family:"arial";
+  font-style:bold;
+  font-size: 25px;
+border-style: none;
+border-width: 0;
+
+line-height: 20px;
+margin-bottom: 0;
+width: auto;
+padding: 3px 10px;
+border: 3px solid #e0e0e0;
+}
+input {
+display: inline-block;
+float: left;
+width:30%;
+
+}
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+            <div class="alert alert-primary" role="alert">
+                <center>ENTER YOUR NOTICE HERE !</center>
+    </div>
+    <br><br>
+  <fieldset class="the-fieldset">
+    <legend class="the-legend"><em>NOTICE ENTRY FORM</em></legend>
+    <form action="/college/send_notice" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+            <input type="hidden" value="{{username}}" name="username">
+            <input type="hidden" value="{{role}}" name="role">
+     <label for="notice">Notice Head. &nbsp;:-</label><input type="text" required style="width:60%;" name="notice" placeholder="Title for the Notice">
+     <br><br>
+    <label>Notice Body &nbsp; :-</label><textarea name="nbody" required rows="15" style="width:80%;"  placeholder="Enter Your Notice Body Here"></textarea>
+    <br><br>
+    <p align="center"><button type="submit" name="button" class="btn btn-primary">SUBMIT</button></p>
+    </form>
+  </fieldset>
+    </div>
+<br><br>
+{% endblock %}

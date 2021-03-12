@@ -1,0 +1,22 @@
+{% extends 'basecode1.html' %}
+{% block title %}Notice - Alumni Tracking System{% endblock %}
+{% block body %}
+<center><h1><b><u>NOTICE DETAILS</u></b></h1></center><BR><BR>
+<div style="border:solid 1px;" class="alert alert container" role="alert">
+    <center><h4 class="alert-heading"><u>{{notice.noticeTitle}}</u></h4></center>
+    <br><br>
+    <p>{{notice.noticeBody}}</p>
+  <hr color="green">
+  <p class="mb-0">Published on: {{notice.dateOfPublish}}</p>
+<center>
+    <form method="get" action="/college/delete_notice"><br>
+
+             <input type="hidden" name="role" value="{{role}}">
+      <input type="hidden" name="username" value="{{username}}">
+    <input type="hidden" name="noticeid" value="{{notice.id}}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</center>
+</div>
+
+{% endblock %}

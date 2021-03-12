@@ -1,0 +1,225 @@
+{% extends 'basecode.html' %}
+{% block title %} Register College-Alumini Tracking System {% endblock %}
+{% block regclg %}active{% endblock %}
+{% block body %}
+<div class="container">
+        <div class="alert alert-primary" role="alert">
+            <center>COLLEGE REGISTRATION FORM !</center>
+</div>
+        <br><br>
+    <form method="post" id="form" enctype="multipart/form-data" action="/admin_login/college_register_success">
+        {% csrf_token %}<input type="hidden" value="{{role}}" name="role">
+        College Name:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="clgname" required>
+
+        <br><br>
+        Contact Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="text" name="mobno" required>
+        <br>
+       <br>
+           Email Address :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="emlfld" type="email" name="email" required>
+
+        <br>
+        <div class="emlerr" style="color:red"></div>
+        <br>
+        Enter Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" required name="password" id="repass">
+
+        <br><br>
+        Re-enter Paswword:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="password" id="confpass" name="repassword" required>
+        <br>
+        <div class="err" style="color:red;"></div><br>
+
+        <br>
+         <br>
+        College Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="coltype" required>
+
+        <br>
+         <br>
+        College Id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="clgid" type="text" name="colid" required>
+
+          <br>
+        <div class="clgerr" style="color:red"></div>
+        <br>
+
+        <br>
+        Name of principle: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="principle" required id="principle">
+
+        <br>
+         <br>
+        Departments:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br><b>To select multiple items press CTRL and then select</b>
+       <select name="depts" multiple class="custom-select" required>
+  {% for i in department %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+</select>
+
+        <br><br>
+        Year of establishment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="number" name="yoe" required>
+
+        <br>
+        <br>
+
+
+  Courses Offered:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br><b>To select multiple items press CTRL and then select</b>
+ <select name="courses" multiple class="custom-select" required>
+  {% for i in courses %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+</select>
+
+        <br>
+<br>
+        University:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="unv" required>
+
+        <br>
+        <br>
+        Address:<div class="form-group">
+
+    <textarea class="form-control" required name='address' id="FormControlTextarea1" rows="3"></textarea>
+
+        <br><br>
+        Pincode: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="pincode" required id="tpin">
+
+        <br><br>
+
+        </div>
+
+         <center> <button type="submit" class="btn btn-primary" id="register">Register</button></center><br><br>
+        <div style="color:red">{{error}}</div>
+
+    </form>
+        </div>
+
+
+{% endblock %}
+{% block js %}
+var allowsubmit = false;
+        $(function(){
+         $(document).ready(function(){
+            $('#emlfld').val('');
+
+            });
+
+
+            $('#emlfld').on('keyup',function(){
+                var email = $(this).val();
+                console.log(email)
+                $.ajax({
+                type:'POST',
+                url:'/student/ajax/validate_email',
+                data:{
+                    'email' : email,
+                    'csrfmiddlewaretoken': '{{csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(data){
+                console.log(data.is_taken)
+                    if(data.is_taken){
+                        $('.emlerr').text('Email is already taken')
+                        $('#register').attr('disabled',true)
+                    }
+
+                    if(!data.is_taken){
+                     $('.emlerr').text('')
+                     $('#register').attr('disabled',false)
+                    }
+                    }
+                });
+
+            });
+
+        $('#clgid').on('keyup',function(){
+                var clgid = $(this).val();
+                console.log(clgid)
+                $.ajax({
+                type:'POST',
+                url:'/college/ajax/validate_college_id',
+                data:{
+                    'clgid' : clgid,
+                    'csrfmiddlewaretoken': '{{csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(data){
+                console.log(data.is_taken)
+                    if(data.is_taken){
+                        $('.clgerr').text('College id  is already taken')
+                        $('#register').attr('disabled',true)
+                    }
+
+                    if(!data.is_taken){
+                     $('.clgerr').text('')
+                     $('#register').attr('disabled',false)
+                    }
+                    }
+                });
+});
+
+            //onkeypress
+            $('#confpass,#repass').keyup(function(e){
+            //get values
+            var pwd= $('#repass').val();
+            var confpwd=$('#confpass').val();
+
+            if(pwd == confpwd){
+                $('.err').text('');
+                allowsubmit = true;
+
+            }else{
+            $('.err').text('password not matching');
+            allowsubmit = false;
+            }
+            });
+
+
+            $('#form').submit(function()
+            {
+                var pwd = $('#repass').val();
+                var confpwd = $('#confpass').val();
+                var gen1=$("input[name='gender']:checked").val();
+                  $('.err1').text('');
+                if(pwd==""){
+                    $('.err').text('please enter password');
+                    return false;
+                }
+
+                if(pwd == confpwd){
+
+                    $('#FormControlTextarea2,#ppin').prop('disabled',false);
+                    return true;
+
+
+                    }
+                else{
+                     $('.err').text('password not matching');
+                    return false;
+                    }
+
+            });
+
+
+            });
+
+     //$('#cust_logout').click(function(){
+//localStorage.removeItem('cart','chkcart');
+
+//})
+
+//window.onunload=function(){
+//localStorage.removeItem('cart','chkcart');
+//}
+            //});
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'basecode1.html' %}
+{% block title %}Notices - Alumni Tracking System{% endblock %}
+{% block view_notices %}active{% endblock %}
+{% block body %}
+<center>
+    <h1><b><u>NOTICES</u></b></h1>
+    <div class="container-fluid">
+        {% for i in notices %}
+
+        <div align="left" class="container alert alert-warning" role="alert">
+            <form method="get" enctype="multipart/form-data" action="/college/view_full_notice">
+                <table><tr><td><u><b style="color:black;"><h4>{{i.noticeTitle}}</h4></b></u>
+     </td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>
+         <button class="btn btn-danger" type="submit">View</button>
+                    <input type="hidden" name="role" value="{{role}}">
+      <input type="hidden" name="username" value="{{username}}">
+    <input type="hidden" name="noticeid" value="{{i.id}}">
+         </td>
+    </tr>
+    </table>
+        </form> </div>
+
+            {% endfor %}
+
+
+    </div>
+</center>
+
+
+{% endblock %}

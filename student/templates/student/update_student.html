@@ -1,0 +1,240 @@
+{% extends 'basecode2.html' %}
+{% block title %}Update Profile -Alumni Tracking System{% endblock %}
+{% block body %}
+<div class="container">
+    <center>
+        <h1><u><b>Profile Update:</b></u></h1><br><br>
+    <form method="post" id="form" action="/student/update_student_profile" enctype="multipart/form-data">
+        {% csrf_token %}<input type="hidden" value="{{role}}" name="role">
+
+    <table>
+        <tr class="table">
+            <th>First Name:</th>
+            <td><input type="text" name="fname" id="i1" value="{{student.firstName}}" disabled></td>
+            <td><input type="button" id="e1" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c1" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err1"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Middle Name:</th>
+            <td><input type="text" name="mname" id="i2" value="{{student.middleName}}" disabled></td>
+            <td><input type="button" id="e2" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c2" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err2"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Last Name:</th>
+            <td><input type="text" name="lname" id="i3" value="{{student.lastName}}" disabled></td>
+            <td><input type="button" id="e3" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c3" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err3"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Mobile Number:</th>
+            <td><input type="text" name="mobno" id="i4" value="{{student.mobileNo}}" disabled></td>
+            <td><input type="button" id="e4" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c4" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err4"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Annual Income:</th>
+            <td><input type="number" name="anninc" id="i5" value="{{student.AnnualIncome}}" disabled></td>
+            <td><input type="button" id="e5" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c5" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err5"></div></td>
+            </tr>
+
+              <tr class="table">
+            <th>Email Address:</th>
+            <td><input type="text" name="email" id="i6" value="{{student.emailAdd}}" disabled></td>
+            <td><input type="button" id="e6" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c6" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err6">{{error}}</div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Current Work Status:</th>
+            <td><select id="i7" disabled class="custom-select" name="work" required>
+  {% for i in sts %}
+
+            <option value="{{i}}">{{i}}</option>
+{% endfor %}
+</select></td>
+            <td><input type="button" id="e7" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c7" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err7"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Address:</th>
+            <td><input type="text" name="address" id="i8" value="{{student.address}}" disabled></td>
+            <td><input type="button" id="e8" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c8" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err8"></div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Pincode:</th>
+            <td><input type="text" name="pin" id="i9" value="{{student.pincode}}" disabled></td>
+            <td><input type="button" id="e9" class="btn ebn btn-success" value="EDIT"></td>
+            <td><input type="button" id="c9" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+            <td><div style="color:red;" id="err9"></div></td>
+            </tr>
+
+  <tr class="table">
+            <th>Gender:</th>
+
+        <td><input type="radio" disabled name="gender" value="Male" id="genm">Male&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" disabled name="gender" value="Female" id="genf">Female
+        <input type="radio" disabled name="gender" value="Others" id="geno">Others
+
+        </td>
+
+      <td><input type="button" id="e12" class="btn ebs btn-success" value="EDIT"></td>
+            <td><input type="button" id="c12" class="btn ebc btn-warning" value="CONFIRM" style="display: none;"></td>
+         <td><div style="color:red;" id="err12"></div></td>
+        </tr>
+
+
+
+    </table>
+
+
+
+
+    <input type="hidden" id="user" name="student_old_username" value="{{username}}">
+        <br>
+        <div style="color:red" id="upderr"></div>
+        <br>
+        <button type="submit" id="updt" class="btn btn-warning">UPDATE</button>
+
+    </form>
+    </center>
+</div>
+<br><br>
+{% endblock %}
+
+{% block js %}
+
+        $(function(){
+      var $pincode=/^[1-9][0-9]{5}$/;
+      var $mobile=/^[0-9]{10,15}$/;
+
+         if ('{{student.gender}}' == 'Male')
+            {
+                $('#genm').prop("checked",true);
+            }
+            else if('{{student.gender}}' == 'Female'){
+                $('#genf').prop("checked",true);
+            }
+            else
+            {
+            $('#geno').prop("checked",true);
+            }
+
+            $('.ebn').click(function(){
+
+               var eid=this.id.toString().slice(1,);
+                console.log(eid)
+                $('#'+'i'+eid).prop("disabled",false);
+                $('#'+'e'+eid).css("display","none");
+                $('#'+'c'+eid).css("display","block");
+
+
+
+
+            });
+
+             $('.ebc').click(function(){
+
+               var eid=this.id.toString().slice(1,);
+                console.log(eid)
+                if(eid!='9' && eid!='4')
+                {
+                if($('#'+'i'+eid).val()=="" )
+
+                {
+                $('#err'+eid).text('Please enter some value')
+                 return false
+                }
+                else{
+                $('#err'+eid).text('')
+                $('#'+'i'+eid).prop("disabled",true);
+
+                $('#'+'c'+eid).css("display","none");
+                 $('#'+'e'+eid).css("display","block");
+                 }
+                 }
+                 });
+
+            $('#c4').click(function(){
+            if(!$('#i4').val().match($mobile))
+            {
+            $('#err4').text('Please enter a valid mobile number')
+            }
+            else{
+            $('#err4').text('');
+             $('#i4').prop("disabled",true);
+
+                $('#c4').css("display","none");
+                 $('#e4').css("display","block");
+            }
+            });
+
+             $('#c9').click(function(){
+            if(!$('#i9').val().match($pincode))
+            {
+            $('#err9').text('Please enter a valid pincode')
+            }
+            else{
+            $('#err9').text('');
+             $('#i9').prop("disabled",true);
+
+                $('#c9').css("display","none");
+                 $('#e9').css("display","block");
+
+            }
+            });
+
+
+            $('#e12').click(function(){
+                $('#genm,#genf,#geno').prop("disabled",false);
+                $('#e12').css("display","none");
+                $('#c12').css("display","block");
+
+            });
+
+            $('#c12').click(function(){
+                $('#genm,#genf,#geno').prop("disabled",true);
+                $('#c12').css("display","none");
+                $('#e12').css("display","block");
+
+            });
+
+            $('#updt').click(function(){
+                if(!($('#c1').is(':hidden') && $('#c2').is(':hidden') && $('#c3').is(':hidden') && $('#c4').is(':hidden') && $('#c5').is(':hidden') && $('#c6').is(':hidden') && $('#c7').is(':hidden') && $('#c8').is(':hidden') && $('#c9').is(':hidden')  && $('#c12').is(':hidden')))
+                {
+                 $('#upderr').text('Please conform all your updates before updating your profile');
+                  return false;
+                }
+                else{
+                $('#upderr').text('');
+                alert('Your profile has been updated succesfully')
+                $('#i1,#i2,#i3,#i4,#i5,#i6,#i7,#i8,#i9,#genm,#genf,#geno').prop("disabled",false);
+                 }
+
+
+
+            });
+
+
+
+
+
+         });
+
+{% endblock %}

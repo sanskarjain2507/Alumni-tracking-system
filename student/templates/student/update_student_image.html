@@ -1,0 +1,40 @@
+{% extends 'basecode2.html' %}
+{% block title %}Update Image-Alumni Tracking System{% endblock %}
+{% block chgimg %}active{% endblock %}
+{% block body %}
+<div class="container">
+    <center>
+    <form method="post" action="/student/after_image_update" enctype="multipart/form-data">
+    {% csrf_token %}
+        <input type="hidden" value="{{role}}" name="role">
+        <input type="hidden" value="{{username}}" name="username">
+    <h3><b>Your Current Profile Image is :</b></h3>
+    <br><img src="{{student.image}}">
+
+   <br><br> <h4>Please select New Image for your Profile</h4>
+    <input type="file" required accept="image/*" onchange="previewFile()" name="clgimage"><br>
+   <br><br><h4>Your Selelcted Image is</h4>
+    <img id="imageView" src="" height="200" alt="Image preview...">
+    <br><br><button type="submit" class="btn btn-warning">Update</button>
+
+    </form>
+</center>
+</div>
+{% endblock %}
+{% block js %}
+function previewFile() {
+  var preview = document.querySelector('#imageView');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
+{% endblock %}

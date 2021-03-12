@@ -1,0 +1,57 @@
+{% extends 'basecode.html' %}
+{% block title %}Colleges-Alumini Tracking System {% endblock %}
+{% block college_info %}active{% endblock %}
+{% block body %}
+<div class="container">
+    <center>
+{% for i in colleges %}
+<div class="card" style="width:90%; padding:10px;">
+  <img src="{{i.image}}" style="width:80%; height:90%; padding:20px" class="card-img-top" alt="...">
+  <div class="card-body">
+      <h5 class="card-title"><b>{{i.collegeName}}</b></h5>
+      <p class="card-text"><b>Address:  </b>{{i.address}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+      <li class="list-group-item"><b>Year Of Establishment:  </b>{{i.yearOfEstablishment}}</li>
+
+  </ul>
+  <div class="card-body">
+      <table>
+          <td>
+              <td>
+      <form method="get" action="/admin_login/view_full_info" enctype="multipart/form-data">
+          <input type="hidden" value="{{i.id}}" name="clgid">
+           <input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+    <button type="submit" id="info{{i.id}}" class="btn btn-success">View full info</button>
+      </form></td>
+          <td>
+          <form method="get" action="/admin_login/delete_college" enctype="multipart/form-data">
+              <input type="hidden" value="{{i.id}}" name="clgid">
+              <input type="hidden" value="{{role}}" name="role">
+              <input type="hidden" value="{{username}}" name="username">
+      <button type="submit" id="clgdel{{i.id}}" class="dlt btn btn-danger">Delete College</button>
+  </form></td>
+          </tr>
+  </table>
+</div>
+    </div>
+        <br><br>
+
+{% endfor %}
+        </center>
+</div>
+{% endblock %}
+
+{% block js %}
+
+$('.dlt').click(function(){
+var cnf=confirm('Do you really want to delete this College?');
+if(cnf==false){
+return false;
+}
+else{
+return true;
+}
+});
+{% endblock %}

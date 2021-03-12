@@ -1,0 +1,36 @@
+{% extends 'basecode1.html' %}
+{% block title %}Consensus - Alumni Trackin SystemP{% endblock %}
+{% block consensus_view %}active{% endblock %}
+{% block body %}
+<center>
+{% for i in votes %}
+<div class="card" style="width: 60%;">
+  <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Published on: {{i.dateOfPublish}}</h6>
+      <hr>
+    <p class="card-text">{{i.article}}</p>
+      <table>
+          <tr>
+              <td>
+      <form method="get" action="/college/view_full_vote_info" enctype="multipart/form-data">
+    <button class="btn btn-primary">View Full Info</button>
+          <input type="hidden" name="role" value="{{role}}">
+      <input type="hidden" name="username" value="{{username}}">
+      <input type="hidden" name="voteid" value="{{i.id}}">
+  </form></td>
+              <td>
+
+      <form method="get" enctype="multipart/form-data" action="/college/delete_consensus">
+      <button class="btn btn-danger">Delete</button>
+      <input type="hidden" name="role" value="{{role}}">
+      <input type="hidden" name="username" value="{{username}}">
+      <input type="hidden" name="voteid" value="{{i.id}}">
+  </form></td>
+          </tr>
+          </table>
+  </div>
+</div>
+    {% endfor %}
+</center>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends 'basecode1.html' %}
+{% block title %}Consensus Details - Alumni Tracking System{% endblock %}
+{% block body %}
+<center>
+    <div class="alert alert-primary" role="alert">
+        <h2>Here is your details for the consensus</h2>
+</div>
+</center>
+<br>
+<div class="container-fluid">
+    <b> <u><h4>Question:</h4></u></b>  <br> <h3 style="color:red;"> {{article.article}}</h3>
+
+      <b> <u><h3>Response:</h3></u></b><br>
+    <h3 style="color:red;">  Total {{count}} alumnis are ready for this event!!</h3>
+<br>
+     <b> <u><h3>Alumnis list who had accepted your request:</h3></u></b><br>
+    {% for i in students %}
+    <h4 style="color:green;">{{i}}</h4>
+
+
+{% endfor %}
+    </div>
+
+{% endblock %}

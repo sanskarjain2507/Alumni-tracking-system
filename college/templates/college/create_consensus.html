@@ -1,0 +1,20 @@
+{% extends 'basecode1.html' %}
+{% block title %}Create Consensus-Alumni Tracking System{% endblock %}
+{% block consensus_publish %}active{% endblock %}
+{% block body %}
+<div class="alert alert-success" role="alert">
+    <center><h2><b>Consensus Creation Form</b></h2></center>
+</div>
+<div class="container-fluid">
+    <form method="post" action="/college/submit_consensus" enctype="multipart/form-data">
+    {% csrf_token %}
+        <center><label><h3><u><b>Enter the content for voting here:</b></u></h3></label><br><br>
+    <textarea cols="80" rows="10" required name="voteText"></textarea><br><br>
+<button type="submit" class="btn btn-success" >Publish</button>
+<input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+        </center>
+    </form>
+</div>
+
+{% endblock %}

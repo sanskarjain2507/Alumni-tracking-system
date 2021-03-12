@@ -1,0 +1,31 @@
+{% extends 'basecode1.html' %}
+{% block title %}{{student.firstName}}: Info - Alumini Tracking System{% endblock %}
+{% block body %}
+<div class="container">
+    <center><h3><b><u>Student Profile: {{student.firstName}}</u></b></h3></center>
+<br><br>
+    <input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+    <div class="card" style="width: 90%; padding:10px;">
+  <img src="{{student.image}}" style="width:80%; max-height:500px; padding:20px" class="card-img-top" alt="...">
+  <div class="card-body">
+    <div class="card-text">
+        <b>Student Full Name: </b>{{student.firstName}} {{student.middleName}} {{student.lastName}}<br><br><hr>
+        <b>College Admission ID: </b>{{student.collegeAdmissionId}}<br><br><hr>
+        <b>Email: </b>{{student.emailAdd}}<br><br><hr>
+        <b>Contact Number: </b>{{student.mobileNo}}<br><br><hr>
+        <b>Address: </b>{{student.address}}<br><br><hr>
+        <b>Pincode: </b>{{student.pincode}}<br><br><hr>
+        <b>Gender: </b>{{student.gender}}<br><br><hr>
+        <b>Annual Income: </b>{{student.AnnualIncome}}<br><br><hr>
+        <b>Current Status of job: </b>{{student.currentWorkStatus}}<br><br><hr>
+        <b>Last degree persued from college: </b>{{student.degreePersuedFromClg}}<br><br><hr>
+        <b>Year of Completion: </b>{{student.YearOfCompletion}}<br><br><hr>
+
+
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'basecode2.html' %}
+{% block title %}{{college.collegeName}}-Alumini Tracking System{% endblock %}
+{% block body %}
+<div class="container">
+<div class="card" style="width: 90%; padding:10px;">
+  <img src="{{college.image}}" style="width:80%; height:90%; padding:20px" class="card-img-top" alt="...">
+  <div class="card-body">
+    <div class="card-text">
+        <input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+        <b><center><u><h1 style="">{{college.collegeName}}</h1></u></center></b><br><br><hr>
+        <b>Type of college: </b>{{college.collegeType}}<br><br><hr>
+        <b>College ID: </b>{{college.collegeId}}<br><br><hr>
+        <b>Email: </b>{{college.emailAdd}}<br><br><hr>
+        <b>Contact Number: </b>{{college.mobileNo}}<br><br><hr>
+        <b>University: </b>{{college.university}}<br><br><hr>
+        <b>Year of establishment: </b>{{college.yearOfEstablishment}}<br><br><hr>
+        <b>Departments: </b><br>
+        <ul>
+            {% for i in departments %}
+            <li>{{i}}</li>
+            {% endfor %}
+        </ul><hr>
+         <b>Courses Offered: </b><br>
+        <ul>
+            {% for i in courses %}
+            <li>{{i}}</li>
+            {% endfor %}
+        </ul><hr>
+
+        <b>Name of principle: </b>{{college.principleName}}<br><br><hr>
+        <b>Location/Address: </b>{{college.address}}<br><br><hr>
+
+
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'basecode2.html' %}
+{% block title %}Notice - Alumni Tracking System{% endblock %}
+{% block body %}
+<center><h1><b><u>NOTICE DETAILS</u></b></h1></center><BR><BR>
+<div style="border:solid 1px;" class="alert alert container" role="alert">
+    <center><h4 class="alert-heading"><u>{{notice.noticeTitle}}</u></h4></center>
+    <br><br>
+    <p>{{notice.noticeBody}}</p>
+  <hr color="green">
+  <p class="mb-0">Published on: {{notice.dateOfPublish}}</p>
+
+</div>
+
+{% endblock %}

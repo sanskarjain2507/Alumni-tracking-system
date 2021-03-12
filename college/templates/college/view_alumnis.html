@@ -1,0 +1,112 @@
+{% extends 'basecode1.html' %}
+{% block title %}Alumnis-Alumni Tracking System{% endblock %}
+{% block view_alumnis %}{% endblock %}
+{% block nav_items %}
+ <li>
+            <form class="form-inline" method="get" action="/college/alumni_search">
+               <input type="hidden" value="{{role}}" name="role">
+                <table><tr><td>
+               <input id="all_search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="srch">
+
+             <select required name="dept_sel" id="dept_search" class="form-control mr-sm-2">
+                <option value="no_dept" selected name="dept_sel">Select department</option>
+                 {% for i in depts %}
+                 <option value="{{i}}" name="dept_sel">{{i}}</option>
+                 {% endfor %}
+             </select>
+
+                    <!--<select required name="course_sel" id="course_search" class="form-control mr-sm-2">-->
+                <!--<option value="no_course" selected name="course_sel">Select Course</option>-->
+                 <!--{% for i in courses %}-->
+                 <!--<option value="{{i}}" name="course_sel">{{i}}</option>-->
+                 <!--{% endfor %}-->
+             <!--</select>-->
+                </td>
+                    <td>
+
+                <select name="sel_cr" id="search_cr" class="form-control mr-sm-2">
+                    <option value="selection_criteria" selected name="sel_cr">Search By</option>
+                    <option id="dept" value="department" name="sel_cr">Department</option>
+                    <!--<option value="course" name="sel_cr">Course</option>-->
+                    <option value="year" name="sel_cr">Year</option>
+                    <option value="max_sal" name="sel_cr">Salary not more than</option>
+                    <option value="min_sal" name="sel_cr">Salary not less than</option>
+
+                </select>
+                    </td>
+                    </tr></table>
+ <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   &nbsp;&nbsp;&nbsp;     <input type="hidden" name="username" value="{{username}}">
+         </form>
+
+
+        </li>
+
+{% endblock %}
+{% block body %}
+<div class="container">
+
+    <center>
+        {% if empty_condition %}
+         {{empty_condition}}
+        {% else %}
+        <h1><b><u>My Alumnis</u></b></h1><br><br>{% endif %}
+
+{% for i in alumnis %}
+<div class="card" style="width:90%; padding:10px;">
+  <img src="{{i.image}}"  style="width:80%; max-height:500px; padding:20px" class="card-img-top img-fluid" alt="...">
+  <div class="card-body">
+      <h5 class="card-title"><b>{{i.firstName}} {% if i.middleName %} {{i.miidleName}} {% endif %} {{i.lastName}}</b></h5>
+      <p class="card-text"><b>Year of completion:  </b> {{i.YearOfCompletion}}</p>
+  </div>
+
+  <div class="card-body">
+      <table>
+          <td>
+              <td>
+      <form method="get" action="/college/view_full_alumni_info" enctype="multipart/form-data">
+
+          <input type="hidden" value="{{username}}" name="username">
+          <input type="hidden" value="{{i.id}}" name="almid">
+           <input type="hidden" value="{{role}}" name="role">
+    <button type="submit" id="info{{i.id}}" class="btn btn-success">View full info</button>
+      </form></td>
+
+          </tr>
+  </table>
+</div>
+    </div>
+        <br><br>
+
+{% endfor %}
+        </center>
+</div>
+{% endblock %}
+{% block js %}
+$( document ).ready(function() {
+    $('#dept_search').hide();
+ $('#course_search').hide();
+
+
+
+$('#search_cr').on('change',function () {
+
+    if ((this.value) == 'department') {
+        $('#all_search').hide();
+        $('#dept_search').show();
+  $('#course_search').hide();
+    }
+else if((this.value) == 'course')
+{
+ $('#all_search').hide();
+        $('#dept_search').hide();
+        $('#course_search').show();
+}
+else{
+       $('#all_search').show();
+        $('#dept_search').hide();
+ $('#course_search').hide();
+}
+});
+});
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'basecode1.html' %}
+{% block title %}Verify Alumni-Alumni Tracking System{% endblock %}
+{% block view_req %}active{% endblock %}
+{% block body %}
+
+<div class="container">
+    <center>
+        <h1><u><b>Alumini request page</b></u></h1><br><br>
+{% for i in alumnis %}
+<div class="card" style="width:90%; padding:10px;">
+  <img src="{{i.image}}" style="width:50%; height:50%; padding:20px" class="card-img-top" alt="...">
+  <div class="card-body">
+      <p class="card-text"><b>Name of alumni: </b>{{i.firstName}} {{i.middleName}} {{i.lastName}}</p>
+      <p class="card-text"><b>College Admission Id:  </b>{{i.collegeAdmissionId}}</p>
+  </div>
+
+  <div class="card-body">
+      <table>
+          <tr>
+              <td>
+      <form method="get" action="/college/view_alumni_full_info" enctype="multipart/form-data">
+
+          <input type="hidden" value="{{username}}" name="username">
+          <input type="hidden" value="{{i.id}}" name="stdid">
+           <input type="hidden" value="{{role}}" name="role">
+    <button type="submit" id="info{{i.id}}" class="btn btn-primary">View full info</button>
+      </form></td>
+              <td>
+      <form method="get" action="/college/verify_alumni" enctype="multipart/form-data">
+
+          <input type="hidden" value="{{username}}" name="username">
+          <input type="hidden" value="{{i.id}}" name="clgid">
+           <input type="hidden" value="{{role}}" name="role">
+    <button type="submit" id="verify{{i.id}}" class="btn btn-success">Verify</button>
+      </form></td>
+
+              <td>
+      <form method="get" action="/college/discard_alumni" enctype="multipart/form-data">
+
+          <input type="hidden" value="{{username}}" name="username">
+          <input type="hidden" value="{{i.id}}" name="clgid">
+           <input type="hidden" value="{{role}}" name="role">
+    <button type="submit" id="discard{{i.id}}" class="btn btn-danger">Discard</button>
+      </form></td>
+
+          </tr>
+  </table>
+</div>
+    </div>
+        <br><br>
+
+{% endfor %}
+        </center>
+</div>
+
+{% endblock %}

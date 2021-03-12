@@ -1,0 +1,84 @@
+{% extends 'basecode2.html' %}
+{% block title %}Consensus - Alumni Trackin SystemP{% endblock %}
+{% block view_consensus %}active{% endblock %}
+{% block body %}
+<center>
+{% for i in articles %}
+<div class="card" style="width: 60%;">
+  <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Published on: {{i.dateOfPublish}}</h6>
+      <hr>
+    <p class="card-text">{{i.article}}</p>
+      <table>
+          <tr>
+              <td>
+
+    <i id="{{i.id}}" class="fa fa-thumbs-o-up  yes ">VOTE</i>
+          <input type="hidden" name="role" value="{{role}}">
+      <input type="hidden" name="username" value="{{username}}">
+      <input type="hidden" name="voteid" value="{{i.id}}">
+  </td>
+          </tr>
+          </table>
+  </div>
+</div>
+    {% endfor %}
+</center>
+{% endblock %}
+{% block js %}
+ $(function(){
+
+$(document).ready(function(){
+            l={{d|safe}}
+            var i,j;
+            for(i=0;i< l.length;i++){
+            for (j=0;j<2;j++){
+console.log(i,j,l)
+            if (l[i][1]=='yes')
+           {  $('#'+l[i][0]).removeClass('fa-thumbs-o-up');
+            $('#'+l[i][0]).addClass('fa-thumbs-up')
+}
+
+else{
+ $('#'+l[i][0]).removeClass('fa-thumbs-up');
+            $('#'+l[i][0]).addClass('fa-thumbs-o-up')
+
+}
+}
+}
+});
+            $('.yes').on('click',function(){
+                var id = this.id.toString();
+                console.log(id)
+
+                $.ajax({
+                type:'POST',
+                url:'/student/ajax/upvote',
+                data:{
+                    'email' : '{{username}}',
+                    'voteid':id,
+                    'csrfmiddlewaretoken': '{{csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(data){
+                console.log(data.is_taken)
+                    if(data.is_taken){
+                        $('#'+id).removeClass('fa-thumbs-o-up');
+                        $('#'+id).addClass('fa-thumbs-up')
+                    }
+                    else{
+                    $('#'+id).removeClass('fa-thumbs-up');
+                        $('#'+id).addClass('fa-thumbs-o-up')
+}
+
+
+                    }
+                });
+
+            });
+
+
+
+
+});
+{% endblock %}

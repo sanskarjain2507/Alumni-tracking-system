@@ -1,0 +1,109 @@
+{% extends 'basecode1.html' %}
+{% block title %}{{clg.collegeName}}-Alumini Tracking System{% endblock %}
+{% block view_profile %}active{% endblock %}
+{% block body %}
+
+<div class="container-fluid">
+    <center>
+        <h1><span class="badge badge-secondary">Profile</span></h1>
+        <br><br>
+ <table style="border:0;">
+        <tr class="table">
+            <th>College ID:</th>
+            <td><div id="i1" >{{clg.collegeId}}</div></td>
+            </tr>
+
+      <tr class="table">
+            <th>College Name:</th>
+          <td><div id="i2">{{clg.collegeName}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>College Type:</th>
+            <td><div id="i3" >{{clg.collegeType}}</div></td>
+            </tr>
+
+
+
+        <tr class="table">
+            <th>Principle Name</th>
+            <td><div id="i5">{{clg.principleName}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Email Address:</th>
+            <td><div id="i6">{{clg.emailAdd}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Contact Number:</th>
+            <td><div id="i11">{{clg.mobileNo}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Address:</th>
+            <td><div id="i7">{{clg.address}}</div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Pincode:</th>
+            <td><div id="i8">{{clg.pincode}}</div></td>
+            </tr>
+
+       <tr class="table">
+            <th>University</th>
+            <td><div id="i9">{{clg.university}}</div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Year of establishment:</th>
+            <td><div id="i10">{{clg.yearOfEstablishment}}</div></td>
+            </tr>
+
+
+        <tr class="table">
+            <th>Courses Offered:</th>
+
+            <td>
+                <div id="i13">
+                <ul>
+                    {% for i in courses %}
+                    <li>
+                        {{i}}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div></td>
+
+        </tr>
+
+     <tr class="table">
+            <th>Departments:</th>
+
+            <td>
+                <div id="i14">
+                <ul>
+                    {% for i in departments %}
+                    <li>
+                        {{i}}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div></td>
+
+        </tr>
+    </table>
+        <hr>
+
+
+        <br>
+        <form method="post" action="/college/update_college">
+                  {% csrf_token %}<input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+            <button class="btn btn-warning" type="submit">Update</button>
+        </form>
+    </center>
+    </div>
+<br><br>
+
+{% endblock %}

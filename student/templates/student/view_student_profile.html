@@ -1,0 +1,93 @@
+{% extends 'basecode2.html' %}
+{% block title %}{{student.firstName}} {% if student.middleName %} {{student.middleName}}{% endif %} {{student.lastName}}Profile{% endblock %}
+{% block view_profile %}active{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <center>
+        <h1><span class="badge badge-secondary">Profile</span></h1>
+        <br><br>
+ <table style="border:0;">
+        <tr class="table">
+            <th>Full Name: </th>
+            <td><div id="i1" >{{student.firstName}} {% if student.middleName %} {{student.middleName}}{% endif %} {{student.lastName}}</div></td>
+            </tr>
+
+      <tr class="table">
+            <th>College Name: </th>
+          <td><div id="i2">{{student.CollegeName}}</div></td>
+            </tr>
+      <tr class="table">
+            <th>College Admission Id: </th>
+            <td><div id="i3" >{{student.collegeAdmissionId}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Contact Number: </th>
+            <td><div id="i14" >{{student.mobileNo}}</div></td>
+            </tr>
+
+
+
+        <tr class="table">
+            <th>Email Address: </th>
+            <td><div id="i5">{{student.emailAdd}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Current Work Status:</th>
+            <td><div id="i6">{{student.currentWorkStatus}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Annual Income: </th>
+            <td><div id="i11">{{student.AnnualIncome}}</div></td>
+            </tr>
+
+        <tr class="table">
+            <th>Address:</th>
+            <td><div id="i7">{{student.address}}</div></td>
+            </tr>
+
+          <tr class="table">
+            <th>Pincode:</th>
+            <td><div id="i8">{{student.pincode}}</div></td>
+            </tr>
+
+       <tr class="table">
+            <th>Gender:</th>
+            <td><div id="i9">{{student.gender}}</div></td>
+            </tr>
+
+     <tr class="table">
+            <th>Latest Degree Persued From College</th>
+            <td><div id="i12">{{student.degreePersuedFromClg}}</div></td>
+            </tr>
+
+      <tr class="table">
+            <th>Department: </th>
+            <td><div id="i13">{{student.department}}</div></td>
+            </tr>
+
+
+          <tr class="table">
+            <th>Year of Completion:</th>
+            <td><div id="i10">{{student.YearOfCompletion}}</div></td>
+            </tr>
+
+
+
+    </table>
+        <hr>
+
+
+        <br>
+        <form method="post" action="/student/update_student">
+                  {% csrf_token %}<input type="hidden" value="{{role}}" name="role">
+            <input type="hidden" value="{{username}}" name="username">
+            <button class="btn btn-warning" type="submit">Update</button>
+        </form>
+    </center>
+    </div>
+<br><br>
+
+{% endblock %}
